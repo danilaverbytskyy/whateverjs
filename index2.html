@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>Title</h3>
+    <input id="num" type="number" min="1">
+    <button onclick="update()">Update</button>
+</body>
+</html>
+
+<script>
+let div = document.createElement('div');
+div.innerText = 'Список задач:';
+div.id = 'my-div';
+div.className = 'my-div-class';
+document.body.appendChild(div);
+
+const myDiv = document.getElementById('my-div');
+
+let myList = document.createElement('ul');
+myList.id = 'my-list-id';
+myDiv.appendChild(myList);
+
+function update() {
+    let myLength = Number(document.getElementById('num').value);
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=6')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка запроса: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(tasks => {
+            for (let i = 0; i < myLength; i++) {
+                let elem = document.createElement('li');
+                elem.innerText = tasks[i].title;
+                myList.appendChild(elem);
+            }
+
+            let found = myList.parentElement;
+            console.log(found.className);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
+</script>
