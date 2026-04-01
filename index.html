@@ -33,6 +33,9 @@
         let myList = document.getElementById('my-list');
         let myText = document.createElement('li');
         myText.innerText = 'vladik';
+        if (counter === 5) {
+            myText.innerText = 'vladik bro';
+        }
         myList.appendChild(myText);
     }
 </script>
